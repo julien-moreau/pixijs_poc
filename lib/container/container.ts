@@ -1,6 +1,6 @@
 import { Container, Point } from "pixi.js";
-import { DockState } from "./dockState.js";
-import { ResizeType } from "./resizeType.js";
+import { DockState } from "./dockState";
+import { ResizeType } from "./resizeType";
 
 namespace PIXI {
     // Update transform

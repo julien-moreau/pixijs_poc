@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var PIXI = require("pixi.js");
 var game_js_1 = require("../lib/application/game.js");
 var dockState_js_1 = require("../lib/container/dockState.js");

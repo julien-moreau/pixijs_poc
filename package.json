@@ -4,13 +4,22 @@
   "description": "A POC for Pixi",
   "license": "(Apache-2.0)",
   "devDependencies": {
-    "httpserver": "^0.3.0",
-
     "typescript": "^2.2.1",
+    "webpack": "2.3.2",
+    "dts-bundle": "0.7.2",
+
     "@types/pixi.js": "^4.4.0"
   },
+
   "dependencies": {
     "pixi.js": "^4.4.2",
     "systemjs": "^0.20.10"
+  },
+
+  "scripts": {
+    "build": "rm -rf dist && tsc -p .",
+    "package": "npm run build && npm run dts-bundle && webpack",
+    "dts-bundle": "dts-bundle --name pixigame --baseDir ./distt/ --main **/*.d.ts --out ./index.d.ts",
+    "wev": "webpack"
   }
 }

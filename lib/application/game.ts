@@ -1,10 +1,10 @@
 import { Application } from "pixi.js";
-import { DockState } from "../container/dockState.js";
+import { DockState } from "../container/dockState";
 
 // Import dependencies
 import  "../container/container.js";
 
-export default class Game extends Application {
+export default class PixiGame extends Application {
     // Public members
     public backStage = new PIXI.Container();
     public frontStage = new PIXI.Container();
@@ -35,12 +35,16 @@ export default class Game extends Application {
         // Render back
         this.renderer.render(this.backStage);
 
+        const screenWidth = (window.innerWidth > this.screen.width ? this.screen.width : window.innerWidth);
+        const screenheight = (window.innerHeight > this.screen.height ? this.screen.height : window.innerHeight);
+
         // Render middle
         const world = new PIXI.Matrix();
-        if (this.renderer.height < this.renderer.width)
+        //if (this.renderer.height < this.renderer.width)
+        if (screenheight < screenWidth)
             world.translate(
-                (this.screen.width / 2 / this.stage.scale.x) - (this.stage.width / this.stage.scale.x),
-                this.stage.y
+                ((screenWidth / 2) / this.stage.scale.x) - (this.stage.width / this.stage.scale.x),
+                ((screenheight / 2) / this.stage.scale.y) - (this.stage.height),
             );
 
         world.scale(this.stage.scale.x, this.stage.scale.y);

@@ -5,6 +5,14 @@
         "sourceMap": true,
         "module": "commonjs",
 
+        "declarationDir": "./dist/",
+
         "pretty": true
-    }
+    },
+    "include": [
+        "./lib/**/*.ts"
+    ],
+    "exclude": [
+        "./dist/**/*.ts"
+    ]
 }
