@@ -1,0 +1,16 @@
+{
+  "name": "pixipoc",
+  "version": "0.8.0",
+  "description": "A POC for Pixi",
+  "license": "(Apache-2.0)",
+  "devDependencies": {
+    "httpserver": "^0.3.0",
+
+    "typescript": "^2.2.1",
+    "@types/pixi.js": "^4.4.0"
+  },
+  "dependencies": {
+    "pixi.js": "^4.4.2",
+    "systemjs": "^0.20.10"
+  }
+}

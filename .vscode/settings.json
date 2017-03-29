@@ -1,0 +1,17 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/.DS_Store": true,
+        ".tempChromeProfileForDebug": true,
+
+        "src/**/*.js": true,
+        "src/**/*.js.map": true,
+        "src/**/*.d.ts": true,
+
+        "lib/**/*.js": true,
+        "lib/**/*.js.map": true,
+        "lib/**/*.d.ts": true
+    }
+}
