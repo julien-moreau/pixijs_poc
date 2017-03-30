@@ -1,10 +1,10 @@
-import { Application } from "pixi.js";
+import * as PIXI from "pixi.js";
 import { DockState } from "../container/dockState";
 
 // Import dependencies
-import  "../container/container.js";
+import  "../container/container";
 
-export default class PixiGame extends Application {
+export default class PixiGame extends PIXI.Application {
     // Public members
     public backStage = new PIXI.Container();
     public frontStage = new PIXI.Container();
@@ -60,7 +60,7 @@ export default class PixiGame extends Application {
         this.stage.transform = baseTransform;
 
         // Render front
-        this.renderer.render(this.frontStage, null, false);
+        //this.renderer.render(this.frontStage, null, false);
     }
 
     // Call to resize

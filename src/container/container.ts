@@ -10,16 +10,25 @@ namespace PIXI {
         const lastPosition = new Point(this.x, this.y);
         const lastScale = new Point(this.scale.x, this.scale.y);
 
-        const parentWidth = (this.parent._width || this.parent.width);
-        const parentHeight = (this.parent._height || this.parent.height);
+        let parentWidth = (this.parent._width || this.parent.getBounds.call(this, true).width);
+        let parentHeight = (this.parent._height || this.parent.getBounds.call(this, true).height);
+
+        if (!parentWidth)
+            parentWidth = 0;
+        if (!parentHeight)
+            parentHeight = 0;
 
         // Resize
         if (this.resizeType === ResizeType.COVER) {
             const parentMax = Math.max(parentWidth, parentHeight);
             const thisMax = Math.max(this.width, this.height);
             const k = parentMax / thisMax;
-            
+
             this.scale.set(k, k);
+            
+            if (parentWidth < parentHeight) {
+                this.scale.y = parentHeight / this.height;
+            }
         }
 
         // Dock state
@@ -39,7 +48,7 @@ namespace PIXI {
             }
         }
 
-        updateTransformFunc.apply(this);
+        updateTransformFunc.call(this);
 
         this.x = lastPosition.x;
         this.y = lastPosition.y;

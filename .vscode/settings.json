@@ -8,10 +8,6 @@
 
         "src/**/*.js": true,
         "src/**/*.js.map": true,
-        "src/**/*.d.ts": true,
-
-        "lib/**/*.js": true,
-        "lib/**/*.js.map": true,
-        "lib/**/*.d.ts": true
+        "src/**/*.d.ts": true
     }
 }

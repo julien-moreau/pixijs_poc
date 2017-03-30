@@ -3,16 +3,12 @@
         "target": "es5",
         "declaration": true,
         "sourceMap": true,
-        "module": "commonjs",
+        "moduleResolution": "node",
 
-        "declarationDir": "./dist/",
+        "module": "system",
+        "rootDir": "./src",
+        "outDir": "./lib/",
 
-        "pretty": true
-    },
-    "include": [
-        "./lib/**/*.ts"
-    ],
-    "exclude": [
-        "./dist/**/*.ts"
-    ]
+        "pretty": false
+    }
 }

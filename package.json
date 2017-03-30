@@ -5,8 +5,8 @@
   "license": "(Apache-2.0)",
   "devDependencies": {
     "typescript": "^2.2.1",
-    "webpack": "2.3.2",
     "dts-bundle": "0.7.2",
+    "systemjs-builder": "^0.15.34",
 
     "@types/pixi.js": "^4.4.0"
   },
@@ -17,9 +17,8 @@
   },
 
   "scripts": {
-    "build": "rm -rf dist && tsc -p .",
-    "package": "npm run build && npm run dts-bundle && webpack",
-    "dts-bundle": "dts-bundle --name pixigame --baseDir ./distt/ --main **/*.d.ts --out ./index.d.ts",
-    "wev": "webpack"
+    "build": "rm -rf lib && tsc -p .",
+    "dts-bundle": "dts-bundle --name pixigame --baseDir ./libb/ --main **/*.d.ts --out ./index.d.ts",
+    "bundle": "rm -rf dist && npm run build && node ./scripts/bundle.js && tsc -p . --outFile ./dist/index.js"
   }
 }
