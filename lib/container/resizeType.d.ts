@@ -1,4 +1,6 @@
-export declare enum ResizeType {
-    CONTAIN = 0,
-    COVER = 1,
+declare namespace PIXI {
+    enum Resize {
+        CONTAIN = 0,
+        COVER = 1,
+    }
 }

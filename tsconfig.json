@@ -4,8 +4,7 @@
         "declaration": true,
         "sourceMap": true,
         "moduleResolution": "node",
-
-        "module": "system",
+        
         "rootDir": "./src",
         "outDir": "./lib/",
 

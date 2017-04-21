@@ -1,57 +1,54 @@
-import { Container, Point } from "pixi.js";
-import { DockState } from "./dockState";
-import { ResizeType } from "./resizeType";
-
 namespace PIXI {
     // Update transform
     const updateTransformFunc = Container.prototype.updateTransform;
 
     Container.prototype.updateTransform = function () {
-        const lastPosition = new Point(this.x, this.y);
-        const lastScale = new Point(this.scale.x, this.scale.y);
+        if (!this.parent.calculateBounds)
+            return;
 
-        let parentWidth = (this.parent._width || this.parent.getBounds.call(this, true).width);
-        let parentHeight = (this.parent._height || this.parent.getBounds.call(this, true).height);
+        const x = this.transform.position.x;
+        const y = this.transform.position.y;
 
-        if (!parentWidth)
-            parentWidth = 0;
-        if (!parentHeight)
-            parentHeight = 0;
+        const sx = this.transform.scale.x;
+        const sy = this.transform.scale.y;
 
-        // Resize
-        if (this.resizeType === ResizeType.COVER) {
-            const parentMax = Math.max(parentWidth, parentHeight);
-            const thisMax = Math.max(this.width, this.height);
-            const k = parentMax / thisMax;
+        const parentBounds = this.parent.getBounds(true);
+        const thisBounds = this.getBounds(true);
 
-            this.scale.set(k, k);
-            
-            if (parentWidth < parentHeight) {
-                this.scale.y = parentHeight / this.height;
+        if (this.parent._width)
+            parentBounds.width = this.parent._width;
+
+        if (this.parent._height)
+            parentBounds.height = this.parent._height;
+
+        if (this.resize) {
+            if (this.resize === Resize.COVER) {
+                const ratio = Math.max(parentBounds.width / thisBounds.width, parentBounds.height / thisBounds.height);
+                if (!isNaN(ratio))
+                    this.transform.scale.set(ratio, ratio);
             }
         }
 
-        // Dock state
-        if (this.dockState) {
-            // X
-            if (this.dockState & DockState.CENTER_HORIZONTAL) {
-                this.x = parentWidth / 2 - this.width / 2 + this.x;
-            } else if (this.dockState & DockState.RIGHT) {
-                this.x = parentWidth - this.x;
+        if (this.dock) {
+            if (this.dock & Dock.CENTER_HORIZONTAL) {
+                this.transform.position.x = (parentBounds.width / 2) - (thisBounds.width / 2) + this.x;
+            } else if (this.dock & Dock.RIGHT) {
+                this.transform.position.x = parentBounds.width - this.x;
             }
 
-            // Y
-            if (this.dockState & DockState.CENTER_VERTICAL) {
-                this.y = parentHeight / 2 - this.height / 2 + this.y;
-            } else if (this.dockState & DockState.BOTTOM) {
-                this.y = parentHeight - this.y;
+            if (this.dock & Dock.CENTER_VERTICAL) {
+                this.transform.position.y = (parentBounds.height / 2) - (thisBounds.height / 2) + this.y;
+            } else if (this.dock & Dock.BOTTOM) {
+                this.transform.position.y = parentBounds.height - this.y;
             }
         }
-
+        
         updateTransformFunc.call(this);
 
-        this.x = lastPosition.x;
-        this.y = lastPosition.y;
-        this.scale.set(lastScale.x, lastScale.y);
+        this.transform.position.x = x;
+        this.transform.position.y = y;
+
+        this.transform.scale.x = sx;
+        this.transform.scale.y = sy;
     };
 }

@@ -1,7 +1,7 @@
 
 declare namespace PIXI {
     export interface Container {
-        dockState: number;
-        resizeType: number;
+        dock: Dock;
+        resize: Resize;
     }
 }
