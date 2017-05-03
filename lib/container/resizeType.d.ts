@@ -1,6 +1,6 @@
 declare namespace PIXI {
     enum Resize {
-        CONTAIN = 0,
-        COVER = 1,
+        CONTAIN = 1,
+        COVER = 2,
     }
 }

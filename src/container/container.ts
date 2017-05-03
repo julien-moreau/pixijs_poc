@@ -12,8 +12,7 @@ namespace PIXI {
         const sx = this.transform.scale.x;
         const sy = this.transform.scale.y;
 
-        const parentBounds = this.parent.getBounds(true);
-        const thisBounds = this.getBounds(true);
+        let parentBounds = this.parent.getBounds(true);
 
         if (this.parent._width)
             parentBounds.width = this.parent._width;
@@ -21,28 +20,35 @@ namespace PIXI {
         if (this.parent._height)
             parentBounds.height = this.parent._height;
 
+        const transform = new Transform();
+        transform.setFromMatrix(this.worldTransform);
+
         if (this.resize) {
             if (this.resize === Resize.COVER) {
-                const ratio = Math.max(parentBounds.width / thisBounds.width, parentBounds.height / thisBounds.height);
+                const ratio = Math.max(parentBounds.width / this.width, parentBounds.height / this.height);
+                if (!isNaN(ratio))
+                    this.transform.scale.set(ratio, ratio);
+            } else if (this.resize === Resize.CONTAIN) {
+                const ratio = Math.min(parentBounds.width / (this.width / transform.scale.x), parentBounds.height / (this.height / transform.scale.y));
                 if (!isNaN(ratio))
                     this.transform.scale.set(ratio, ratio);
             }
         }
 
-        if (this.dock) {
+        if (this.dock && this.resize !== Resize.COVER) {
             if (this.dock & Dock.CENTER_HORIZONTAL) {
-                this.transform.position.x = (parentBounds.width / 2) - (thisBounds.width / 2) + this.x;
+                this.transform.position.x = (parentBounds.width / 2) - (this.width / transform.scale.x / 2) + this.x;
             } else if (this.dock & Dock.RIGHT) {
-                this.transform.position.x = parentBounds.width - this.x;
+                this.transform.position.x = parentBounds.width - this.width * transform.scale.x - this.x;
             }
 
             if (this.dock & Dock.CENTER_VERTICAL) {
-                this.transform.position.y = (parentBounds.height / 2) - (thisBounds.height / 2) + this.y;
+                this.transform.position.y = (parentBounds.height / 2) - (this.height / transform.scale.y / 2) + this.y;
             } else if (this.dock & Dock.BOTTOM) {
-                this.transform.position.y = parentBounds.height - this.y;
+                this.transform.position.y = parentBounds.height - this.height - this.y;
             }
         }
-        
+
         updateTransformFunc.call(this);
 
         this.transform.position.x = x;

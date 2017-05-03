@@ -1,5 +1,6 @@
 namespace PIXI {
     export class Game extends Application {
+        
         constructor (options: IApplicationOptions, noWebGL: boolean, useSharedTicket: boolean) {
             super(0, 0, {
                 antialias: true,
@@ -17,6 +18,7 @@ namespace PIXI {
             loader.add("floor.png");
             loader.add("reflectivity.png");
             loader.add("snow.jpg");
+            loader.add("bg1.jpg");
 
             loader.load(() => {
                 let cover = PIXI.Sprite.fromFrame("snow.jpg");
@@ -25,22 +27,35 @@ namespace PIXI {
                 cover.name = "cover";
                 this.stage.addChild(cover);
 
-                let back = PIXI.Sprite.fromFrame("floor.png");
-                back.dock = Dock.CENTER_ALL;
+                let view = new PIXI.Container();
+                view.name = "view";
+                view.dock = Dock.CENTER_ALL;
+                view.resize = Resize.CONTAIN;
+                this.stage.addChild(view);
+
+                let container = new PIXI.Container();
+                container.name = "container";
+                //container.dock = Dock.CENTER_ALL;
+                view.addChild(container);
+
+                let back = PIXI.Sprite.fromFrame("bg1.jpg");
+                //back.dock = Dock.CENTER_ALL;
                 back.name = "back";
-                this.stage.addChild(back);
+                container.addChild(back);
 
                 let child = PIXI.Sprite.fromFrame("reflectivity.png");
-                child.dock = Dock.CENTER_ALL;
+                child.dock = Dock.RIGHT | Dock.TOP;
                 child.name = "child";
-                back.addChild(child);
+                container.addChild(child);
 
                 this.start();
+                this.resize();
             });
         }
 
         public resize () {
             this.renderer.resize(window.innerWidth, window.innerHeight);
+
             this.stage.width = this.renderer.width;
             this.stage.height = this.renderer.height;
 
