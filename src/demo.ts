@@ -23,7 +23,6 @@ namespace PIXI {
             loader.load(() => {
                 let cover = PIXI.Sprite.fromFrame("snow.jpg");
                 cover.resize = Resize.COVER;
-                cover.dock = Dock.CENTER_ALL;
                 cover.name = "cover";
                 this.stage.addChild(cover);
 
@@ -35,18 +34,20 @@ namespace PIXI {
 
                 let container = new PIXI.Container();
                 container.name = "container";
-                //container.dock = Dock.CENTER_ALL;
                 view.addChild(container);
 
                 let back = PIXI.Sprite.fromFrame("bg1.jpg");
-                //back.dock = Dock.CENTER_ALL;
                 back.name = "back";
                 container.addChild(back);
 
                 let child = PIXI.Sprite.fromFrame("reflectivity.png");
-                child.dock = Dock.RIGHT | Dock.TOP;
+                child.dock = Dock.CENTER_ALL;
                 child.name = "child";
                 container.addChild(child);
+
+                this.renderer.on('prerender', () => {
+                    child.rotation += 0.01;
+                });
 
                 this.start();
                 this.resize();
@@ -60,6 +61,8 @@ namespace PIXI {
             this.stage.height = this.renderer.height;
 
             this.stage.scale.set(1, 1);
+
+            this.stage.needResize = true;
         }
     }
 }
