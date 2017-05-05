@@ -4,6 +4,6 @@ declare namespace PIXI {
         dock: Dock;
         resize: Resize;
 
-        needResize: boolean;
+        viewport: Viewport;
     }
 }
