@@ -19,7 +19,12 @@ namespace PIXI {
             loader.add("reflectivity.png");
             loader.add("snow.jpg");
             loader.add("bg1.jpg");
-
+            /*
+            loader.add([
+                { name: "pixelWarExplosionCube", url: ["pixelWarExplosionCube.mp3", "pixelWarExplosionCube.ogg"]}
+            ]);
+            */
+            
             loader.load(() => {
                 let cover = PIXI.Sprite.fromFrame("snow.jpg");
                 cover.resize = Resize.COVER;
@@ -45,7 +50,7 @@ namespace PIXI {
                 let container = new Container();
                 container.name = "container";
                 container.dock = Dock.RIGHT | Dock.CENTER_VERTICAL;
-                container.scale.set(0.5, 0.5);
+                container.scale.set(0.3, 0.3);
                 container.x = 50;
                 view.addChild(container);
 

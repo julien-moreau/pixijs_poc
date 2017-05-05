@@ -8,12 +8,15 @@
     "dts-bundle": "0.7.2",
     "systemjs-builder": "^0.15.34",
 
-    "@types/pixi.js": "^4.4.0"
+    "@types/pixi.js": "^4.4.0",
+    "@types/pixi-audio": "https://github.com/Nazariglez/typescript-pixi-game-template.git"
   },
 
   "dependencies": {
     "pixi.js": "^4.4.2",
-    "systemjs": "^0.20.10"
+    "systemjs": "^0.20.10",
+
+    "pixi-audio": "0.1.0"
   },
 
   "scripts": {
