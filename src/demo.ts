@@ -1,6 +1,10 @@
 namespace PIXI {
-    export class Game extends Application {
+    export interface IDemo {
         
+    }
+
+    export class Game extends Application {
+        // Constructor
         constructor (options: IApplicationOptions, noWebGL: boolean, useSharedTicket: boolean) {
             super(0, 0, {
                 antialias: true,
@@ -19,12 +23,7 @@ namespace PIXI {
             loader.add("reflectivity.png");
             loader.add("snow.jpg");
             loader.add("bg1.jpg");
-            /*
-            loader.add([
-                { name: "pixelWarExplosionCube", url: ["pixelWarExplosionCube.mp3", "pixelWarExplosionCube.ogg"]}
-            ]);
-            */
-            
+
             loader.load(() => {
                 let cover = PIXI.Sprite.fromFrame("snow.jpg");
                 cover.resize = Resize.COVER;
