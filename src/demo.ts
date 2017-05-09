@@ -27,7 +27,7 @@ namespace PIXI {
             this.alpha = new AlphaDemo(this);
 
             // Run
-            this.responsive.run();
+            this.alpha.run();
         }
 
         // Resizes the stage

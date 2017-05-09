@@ -13,23 +13,27 @@ namespace PIXI {
             this.game.clear();
             
             // Load
-            let loader = new PIXI.loaders.Loader("./assets");
-            loader.add("snow.jpg");
-            loader.add("flowerTop.png");
-            loader.add("floor.png");
+            let loader = new PIXI.loaders.Loader();
+            loader.add("./assets/bg.jpg");
+            loader.add("./assets/flowerTop.png");
+            loader.add("./assets/floor.png");
+            loader.add("./assets/sprites.png");
+            loader.add("./assets/sprites.json");
 
             loader.load(() => {
-                let cover = PIXI.Sprite.fromFrame("snow.jpg");
+                let cover = Sprite.fromFrame("./assets/bg.jpg");
                 cover.resize = Resize.COVER;
                 this.stage.addChild(cover);
 
-                let flower = PIXI.Sprite.fromFrame("flowerTop.png");
+                // Simple
+                let flower = Sprite.fromFrame("./assets/flowerTop.png");
+                flower.x = -100;
                 flower.dock = Dock.CENTER_ALL;
                 flower.interactive = true;
                 flower.pivot.set(flower.width / 2, flower.height / 2);
                 this.stage.addChild(flower);
 
-                let mask = PIXI.Sprite.fromFrame("floor.png");
+                let mask = Sprite.fromFrame("./assets/floor.png");
                 mask.pivot.set(mask.width / 2, mask.height / 2);
                 flower.addChild(mask);
                 flower.mask = mask;
@@ -38,11 +42,32 @@ namespace PIXI {
                     debugger;
                 });
 
+                // Spritesheet
+                let maskSp = Sprite.fromFrame("sp_mask_diamond.png");
+
+                let container = new Container();
+                container.x = 100;
+                container.dock = Dock.CENTER_VERTICAL;
+                container.dock = Dock.CENTER_ALL;
+                //container.mask = maskSp;
+                container.addChild(maskSp);
+                this.stage.addChild(container);
+
+                for (let i =0; i < 7; i++) {
+                    let diamond = Sprite.fromFrame("blue/sp_diamond_blue_0" + i + ".png");
+                    diamond.y = -7 * 40 + i * 80;
+                    diamond.mask = maskSp;
+                    container.addChild(diamond);
+                }
+
+                // Update
                 let time = 0;
                 this.renderer.on('prerender', () => {
                     mask.rotation = Math.cos(time);
                     flower.rotation = Math.sin(time);
                     time += 0.02;
+
+                    maskSp.y = -250 + 300 * Math.cos(time / 4);
                 });
 
                 this.game.start();
