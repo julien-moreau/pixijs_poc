@@ -16,7 +16,7 @@ namespace PIXI {
             let loader = new PIXI.loaders.Loader();
             loader.add("./assets/bg.jpg");
             loader.add("./assets/flowerTop.png");
-            loader.add("./assets/floor.png");
+            loader.add("./assets/cover.jpg");
             loader.add("./assets/mask.png");
             loader.add("./assets/sprites.png");
             loader.add("./assets/sprites.json");
@@ -34,7 +34,7 @@ namespace PIXI {
                 flower.pivot.set(flower.width / 2, flower.height / 2);
                 this.stage.addChild(flower);
 
-                let mask = Sprite.fromFrame("./assets/floor.png");
+                let mask = Sprite.fromFrame("./assets/cover.jpg");
                 mask.pivot.set(mask.width / 2, mask.height / 2);
                 flower.addChild(mask);
                 flower.mask = mask;

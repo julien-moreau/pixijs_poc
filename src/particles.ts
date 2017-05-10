@@ -1,5 +1,5 @@
 namespace PIXI {
-    export class PerformanceDemo implements IDemo {
+    export class ParticlesDemo implements IDemo {
         public stage: Container;
         public renderer: SystemRenderer;
 
@@ -15,37 +15,42 @@ namespace PIXI {
 
             // Load
             let loader = new PIXI.loaders.Loader("./assets");
-            loader.add("flowerTop.png");
-            loader.add("snow.jpg");
+            loader.add("eggHead.png");
+            loader.add("blue.jpg");
 
             loader.load(() => {
-                let cover = PIXI.Sprite.fromFrame("snow.jpg");
+                let cover = PIXI.Sprite.fromFrame("blue.jpg");
                 cover.resize = Resize.COVER;
                 cover.name = "cover";
                 this.stage.addChild(cover);
 
-                // Create view
+                // Create multiple sprites
+                const sprites: Sprite[] = [];
+                const count = 1000;
+
                 const view = new Container();
                 view.resize = Resize.CONTAIN;
                 view.dock = Dock.CENTER_ALL;
                 view.viewport = new Viewport(1280, 800);
                 this.stage.addChild(view);
 
-                // Create multiple sprites
-                const sprites: Sprite[] = [];
-                const count = 200;
+                const particle = new particles.ParticleContainer(count, {
+                    scale: true,
+                    position: true,
+                    rotation: true,
+                    uvs: true,
+                    alpha: true
+                });
+                view.addChild(particle);
 
                 for (let i = 0; i < count; i++) {
-                    const sprite = Sprite.fromImage("flowerTop.png");
+                    const sprite = Sprite.fromImage("eggHead.png");
                     sprite.x = 1280 * Math.random();
                     sprite.y = 800 * Math.random();
-                    sprite.pivot.x = sprite.width / 2;
-                    sprite.pivot.y = sprite.height / 2;
-                    sprite.interactive = true;
-                    sprite.on("tap", () => this.game.particlesDemo.run());
-                    view.addChild(sprite);
+                    sprite.anchor.set(0.5, 0.5);
 
                     sprites.push(sprite);
+                    particle.addChild(sprite);
                 }
 
                 let time = 0;
