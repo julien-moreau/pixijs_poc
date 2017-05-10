@@ -17,6 +17,7 @@ namespace PIXI {
             loader.add("./assets/bg.jpg");
             loader.add("./assets/flowerTop.png");
             loader.add("./assets/floor.png");
+            loader.add("./assets/mask.png");
             loader.add("./assets/sprites.png");
             loader.add("./assets/sprites.json");
 
@@ -39,24 +40,26 @@ namespace PIXI {
                 flower.mask = mask;
 
                 flower.on("tap", () => {
-                    debugger;
+                    this.game.spine.run();
                 });
 
                 // Spritesheet
-                let maskSp = Sprite.fromFrame("sp_mask_diamond.png");
+                // sp_mask_diamond.png
+                let maskSp = new Sprite(Texture.fromFrame("sp_mask_diamond.png"));
+                maskSp.texture = this.renderer.generateTexture(maskSp);
+                maskSp.cacheAsBitmap = true;
+                maskSp.dock = Dock.CENTER_HORIZONTAL;
 
                 let container = new Container();
                 container.x = 100;
-                container.dock = Dock.CENTER_VERTICAL;
                 container.dock = Dock.CENTER_ALL;
-                //container.mask = maskSp;
+                container.mask = maskSp;
                 container.addChild(maskSp);
                 this.stage.addChild(container);
 
                 for (let i =0; i < 7; i++) {
                     let diamond = Sprite.fromFrame("blue/sp_diamond_blue_0" + i + ".png");
                     diamond.y = -7 * 40 + i * 80;
-                    diamond.mask = maskSp;
                     container.addChild(diamond);
                 }
 

@@ -7,6 +7,8 @@ declare namespace PIXI {
         responsive: ResponsiveDemo;
         blur: BlurDemo;
         alpha: AlphaDemo;
+        performance: PerformanceDemo;
+        spine: SpineDemo;
         constructor(options: IApplicationOptions, noWebGL: boolean, useSharedTicket: boolean);
         resize(): void;
         clear(): void;

@@ -9,13 +9,15 @@
     "systemjs-builder": "^0.15.34",
 
     "@types/pixi.js": "^4.4.0",
-    "@types/greensock": "1.15.32"
+    "@types/greensock": "1.15.32",
+    "@types/pixi-spine": "1.4.2"
   },
 
   "dependencies": {
     "pixi.js": "^4.4.2",
     "systemjs": "^0.20.10",
-    "gsap": "1.19.1"
+    "gsap": "1.19.1",
+    "pixi-spine": "^1.4.2"
   },
 
   "scripts": {

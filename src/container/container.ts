@@ -6,6 +6,9 @@ namespace PIXI {
         if (!this.parent.calculateBounds)
             return;
 
+        if (!this.transform.position)
+            return updateTransformFunc.call(this);
+
         // Transforms
         const x = this.transform.position.x;
         const y = this.transform.position.y;
@@ -15,7 +18,6 @@ namespace PIXI {
     
         const transform = new Transform();
         transform.setFromMatrix(this.worldTransform);
-        transform.updateTransform(this.parent.transform);
 
         const parentTransform = new Transform();
         parentTransform.setFromMatrix(this.parent.worldTransform);

@@ -8,6 +8,8 @@ namespace PIXI {
         public responsive: ResponsiveDemo;
         public blur: BlurDemo;
         public alpha: AlphaDemo;
+        public performance: PerformanceDemo;
+        public spine: SpineDemo;
 
         // Constructor
         constructor (options: IApplicationOptions, noWebGL: boolean, useSharedTicket: boolean) {
@@ -25,9 +27,11 @@ namespace PIXI {
             this.responsive = new ResponsiveDemo(this);
             this.blur = new BlurDemo(this);
             this.alpha = new AlphaDemo(this);
+            this.performance = new PerformanceDemo(this);
+            this.spine = new SpineDemo(this);
 
             // Run
-            this.alpha.run();
+            this.responsive.run();
         }
 
         // Resizes the stage

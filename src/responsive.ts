@@ -17,7 +17,7 @@ namespace PIXI {
             loader.add("floor.png");
             loader.add("reflectivity.png");
             loader.add("snow.jpg");
-            loader.add("bg1.jpg");
+            loader.add("touhou4dead2.jpg");
 
             loader.load(() => {
                 let cover = PIXI.Sprite.fromFrame("snow.jpg");
@@ -29,10 +29,10 @@ namespace PIXI {
                 view.name = "view";
                 view.dock = Dock.CENTER_ALL;
                 view.resize = Resize.CONTAIN;
-                view.viewport = new Viewport(1024, 768);
+                view.viewport = new Viewport(1024, 1024);
                 this.stage.addChild(view);
 
-                let back = PIXI.Sprite.fromFrame("bg1.jpg");
+                let back = PIXI.Sprite.fromFrame("touhou4dead2.jpg");
                 back.name = "back";
                 back.interactive = true;
                 view.addChild(back);
