@@ -2,12 +2,10 @@
 
 namespace PIXI {
     export class SpineDemo implements IDemo {
-        public stage: Container;
         public renderer: SystemRenderer;
 
         // Constructor
         constructor(public game: Game) {
-            this.stage = game.stage;
             this.renderer = game.renderer;
         }
 
@@ -25,14 +23,14 @@ namespace PIXI {
                 let cover = PIXI.Sprite.fromFrame("snow.jpg");
                 cover.resize = Resize.COVER;
                 cover.name = "cover";
-                this.stage.addChild(cover);
+                this.game.stage.addChild(cover);
 
                 // Create contain container
                 let container = new Container();
                 container.resize = Resize.CONTAIN;
                 container.dock = Dock.CENTER_ALL;
                 container.viewport = new Viewport(1280, 800);
-                this.stage.addChild(container);
+                this.game.stage.addChild(container);
 
                 // Create multiple sprites
                 let spineBoy = new PIXI.spine.Spine(res.spineboy.spineData);

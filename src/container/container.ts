@@ -2,6 +2,18 @@ namespace PIXI {
     // Update transform
     const updateTransformFunc = Container.prototype.updateTransform;
 
+    Object.defineProperty(Container.prototype, "resize", {
+        get: function () {
+            return this._resize;
+        },
+        set: function (value) {
+            this._resize = value;
+
+            delete this._width;
+            delete this._height;
+        }
+    });
+
     Container.prototype.updateTransform = function () {
         if (!this.parent.calculateBounds)
             return;
@@ -25,14 +37,14 @@ namespace PIXI {
         // Bounds and dimensions
         let parentBounds = this.parent.getBounds(true);
 
-        if (this.parent.viewport) {
+        if (this.parent._width && this.parent._height) {
+            parentBounds.width = this.parent._width;
+            parentBounds.height = this.parent._height;
+        } else if (this.parent.viewport) {
             parentBounds.width = this.parent.viewport.width * parentTransform.scale.x;
             parentBounds.height = this.parent.viewport.height * parentTransform.scale.y;
-        } else {
-            if (this.parent._width) parentBounds.width = this.parent._width;
-            if (this.parent._height) parentBounds.height = this.parent._height;
         }
-
+    
         let width: number;
         let height: number;
 
@@ -62,6 +74,13 @@ namespace PIXI {
                 const ratio = Math.min(parentBounds.width / width * transform.scale.x, parentBounds.height / height * transform.scale.y);
                 if (!isNaN(ratio))
                     this.transform.scale.set(ratio, ratio);
+            } else if (this.resize === Resize.FITCONTAIN) {
+                const ratio = Math.min(parentBounds.width / width * transform.scale.x, parentBounds.height / height * transform.scale.y);
+                if (!isNaN(ratio))
+                    this.transform.scale.set(ratio, ratio);
+
+                this._width = this.parent.viewport ? this.parent.viewport.width : parentBounds.width;
+                this._height = this.parent.viewport ? this.parent.viewport.height : parentBounds.height;
             }
         }
 

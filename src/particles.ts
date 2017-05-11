@@ -1,11 +1,9 @@
 namespace PIXI {
     export class ParticlesDemo implements IDemo {
-        public stage: Container;
         public renderer: SystemRenderer;
 
         // Constructor
         constructor(public game: Game) {
-            this.stage = game.stage;
             this.renderer = game.renderer;
         }
 
@@ -22,7 +20,7 @@ namespace PIXI {
                 let cover = PIXI.Sprite.fromFrame("blue.jpg");
                 cover.resize = Resize.COVER;
                 cover.name = "cover";
-                this.stage.addChild(cover);
+                this.game.stage.addChild(cover);
 
                 // Create multiple sprites
                 const sprites: Sprite[] = [];
@@ -32,7 +30,7 @@ namespace PIXI {
                 view.resize = Resize.CONTAIN;
                 view.dock = Dock.CENTER_ALL;
                 view.viewport = new Viewport(1280, 800);
-                this.stage.addChild(view);
+                this.game.stage.addChild(view);
 
                 const particle = new particles.ParticleContainer(count, {
                     scale: true,
@@ -53,8 +51,20 @@ namespace PIXI {
                     particle.addChild(sprite);
                 }
 
-                let time = 0;
+                // Next button
+                const text = new Text("Next :)", {
+                    fill: "ffffff",
+                    fontSize: 86,
+                    fontFamily: "comic sans ms",
+                    fontStyle: "bold"
+                });
+                text.dock = Dock.CENTER_HORIZONTAL | Dock.BOTTOM;
+                text.interactive = true;
+                text.on("tap", () => this.game.fullscreenDemo.run());
+                view.addChild(text);
 
+                // Update
+                let time = 0;
                 this.renderer.on('prerender', () => {
                     time += 0.05 * Math.random();
                     let inverse = 1.0;

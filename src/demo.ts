@@ -35,7 +35,7 @@ namespace PIXI {
             this.fullscreenDemo = new FullscreenDemo(this);
 
             // Run
-            this.fullscreenDemo.run();
+            this.responsive.run();
         }
 
         // Resizes the stage
@@ -51,7 +51,9 @@ namespace PIXI {
         // Clears the stage
         public clear () {
             this.stop();
-            this.stage.children.forEach(c => this.stage.removeChild(c));
+            
+            this.stage = new Container();
+            this.stage.name = "stage";
         }
     }
 }

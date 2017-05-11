@@ -1,16 +1,15 @@
 namespace PIXI {
     export class ResponsiveDemo implements IDemo {
-        public stage: Container;
         public renderer: SystemRenderer;
 
         // Constructor
         constructor(public game: Game) {
-            this.stage = game.stage;
             this.renderer = game.renderer;
         }
 
         public run () {
             this.game.clear();
+            this.game.resize();
 
             // Load
             let loader = new PIXI.loaders.Loader("./assets");
@@ -23,17 +22,17 @@ namespace PIXI {
                 let cover = PIXI.Sprite.fromFrame("snow.jpg");
                 cover.resize = Resize.COVER;
                 cover.name = "cover";
-                this.stage.addChild(cover);
+                this.game.stage.addChild(cover);
 
                 let view = new Container();
                 view.name = "view";
-                view.dock = Dock.CENTER_ALL;
                 view.resize = Resize.CONTAIN;
                 view.viewport = new Viewport(1024, 1024);
-                this.stage.addChild(view);
+                this.game.stage.addChild(view);
 
                 let back = PIXI.Sprite.fromFrame("touhou4dead2.jpg");
                 back.name = "back";
+                back.dock = Dock.CENTER_ALL;
                 back.interactive = true;
                 view.addChild(back);
 
@@ -72,6 +71,16 @@ namespace PIXI {
 
                 this.game.start();
                 this.game.resize();
+
+                // GUI
+                const gui = new dat.GUI();
+                const docks = {
+                    value: "CONTAIN",
+                    values: ["CONTAIN", "FITCONTAIN", "NONE"]
+                };
+                gui.add(docks, "value", docks.values).name("Dock").onFinishChange((result: string) => {
+                    view.resize = Resize[result];
+                });
             });
         }
     }

@@ -1,11 +1,9 @@
 namespace PIXI {
     export class PerformanceDemo implements IDemo {
-        public stage: Container;
         public renderer: SystemRenderer;
 
         // Constructor
         constructor(public game: Game) {
-            this.stage = game.stage;
             this.renderer = game.renderer;
         }
 
@@ -22,14 +20,14 @@ namespace PIXI {
                 let cover = PIXI.Sprite.fromFrame("snow.jpg");
                 cover.resize = Resize.COVER;
                 cover.name = "cover";
-                this.stage.addChild(cover);
+                this.game.stage.addChild(cover);
 
                 // Create view
                 const view = new Container();
                 view.resize = Resize.CONTAIN;
                 view.dock = Dock.CENTER_ALL;
                 view.viewport = new Viewport(1280, 800);
-                this.stage.addChild(view);
+                this.game.stage.addChild(view);
 
                 // Create multiple sprites
                 const sprites: Sprite[] = [];

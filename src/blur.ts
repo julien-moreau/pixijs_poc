@@ -1,11 +1,9 @@
 namespace PIXI {
     export class BlurDemo implements IDemo {
-        public stage: Container;
         public renderer: SystemRenderer;
 
         // Constructor
         constructor(public game: Game) {
-            this.stage = game.stage;
             this.renderer = game.renderer;
         }
 
@@ -20,12 +18,12 @@ namespace PIXI {
             loader.load(() => {
                 let cover = PIXI.Sprite.fromFrame("snow.jpg");
                 cover.resize = Resize.COVER;
-                this.stage.addChild(cover);
+                this.game.stage.addChild(cover);
 
                 let flower = PIXI.Sprite.fromFrame("flowerTop.png");
                 flower.dock = Dock.CENTER_ALL;
                 flower.interactive = true;
-                this.stage.addChild(flower);
+                this.game.stage.addChild(flower);
 
                 flower.on("tap", () => {
                     this.game.alpha.run();

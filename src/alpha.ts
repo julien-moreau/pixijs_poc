@@ -1,11 +1,9 @@
 namespace PIXI {
     export class AlphaDemo implements IDemo {
-        public stage: Container;
         public renderer: SystemRenderer;
 
         // Constructor
         constructor(public game: Game) {
-            this.stage = game.stage;
             this.renderer = game.renderer;
         }
 
@@ -24,7 +22,7 @@ namespace PIXI {
             loader.load(() => {
                 let cover = Sprite.fromFrame("./assets/bg.jpg");
                 cover.resize = Resize.COVER;
-                this.stage.addChild(cover);
+                this.game.stage.addChild(cover);
 
                 // Simple
                 let flower = Sprite.fromFrame("./assets/flowerTop.png");
@@ -32,7 +30,7 @@ namespace PIXI {
                 flower.dock = Dock.CENTER_ALL;
                 flower.interactive = true;
                 flower.pivot.set(flower.width / 2, flower.height / 2);
-                this.stage.addChild(flower);
+                this.game.stage.addChild(flower);
 
                 let mask = Sprite.fromFrame("./assets/cover.jpg");
                 mask.pivot.set(mask.width / 2, mask.height / 2);
@@ -55,7 +53,7 @@ namespace PIXI {
                 container.dock = Dock.CENTER_ALL;
                 container.mask = maskSp;
                 container.addChild(maskSp);
-                this.stage.addChild(container);
+                this.game.stage.addChild(container);
 
                 for (let i =0; i < 7; i++) {
                     let diamond = Sprite.fromFrame("blue/sp_diamond_blue_0" + i + ".png");

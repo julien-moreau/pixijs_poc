@@ -1,11 +1,9 @@
 namespace PIXI {
     export class FullscreenDemo implements IDemo {
-        public stage: Container;
         public renderer: SystemRenderer;
 
         // Constructor
         constructor(public game: Game) {
-            this.stage = game.stage;
             this.renderer = game.renderer;
         }
 
@@ -21,7 +19,44 @@ namespace PIXI {
                 let cover = PIXI.Sprite.fromFrame("snow.jpg");
                 cover.resize = Resize.COVER;
                 cover.name = "cover";
-                this.stage.addChild(cover);
+                this.game.stage.addChild(cover);
+
+                // Methods
+                const enterFullscreen = () => {
+                    const requestFunction = this.game.view.requestFullscreen || this.game.view.msRequestFullscreen || this.game.view.webkitRequestFullscreen || this.game.view.mozRequestFullScreen;
+                    if (!requestFunction) return;
+                    requestFunction.call(this.game.view);
+
+                    // Draw text
+                    const text = new Text("Next :)", {
+                        fill: "ffffff",
+                        fontSize: 86,
+                        fontFamily: "comic sans ms",
+                        fontStyle: "bold"
+                    });
+                    text.dock = Dock.CENTER_HORIZONTAL | Dock.BOTTOM;
+                    text.resize = Resize.CONTAIN;
+                    this.game.stage.addChild(text);
+                    text.interactive = true;
+                    text.on("tap", () => {
+                        this.game.responsive.run();
+                        this.game.view.removeEventListener("click", enterFullscreen);
+                    });
+                };
+
+                const exitFullscreen = () => {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                    } else if (document.mozCancelFullScreen) {
+                        document.mozCancelFullScreen();
+                    } else if (document.webkitCancelFullScreen) {
+                        document.webkitCancelFullScreen();
+                    } else if (document.msCancelFullScreen) {
+                        document.msCancelFullScreen();
+                    }
+                };
+
+                this.game.view.addEventListener("click", enterFullscreen);
 
                 this.game.start();
             });
