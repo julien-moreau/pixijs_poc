@@ -16,7 +16,7 @@ namespace PIXI {
 
     Container.prototype.updateTransform = function () {
         if (!this.parent.calculateBounds)
-            return;
+            return updateTransformFunc.call(this);
 
         if (!this.transform.position)
             return updateTransformFunc.call(this);
@@ -62,19 +62,19 @@ namespace PIXI {
         }
 
         // Resize
-        if (this.resize) {
-            if (this.resize === Resize.COVER) {
+        if (this._resize) {
+            if (this._resize === Resize.COVER) {
                 const ratio = Math.max(parentBounds.width / this.width, parentBounds.height / this.height);
                 if (!isNaN(ratio))
                     this.transform.scale.set(ratio, ratio);
 
                 this.transform.position.x = (parentBounds.width / 2) - (this.width / 2) + this.x;
                 this.transform.position.y = (parentBounds.height / 2) - (this.height / 2) + this.y;
-            } else if (this.resize === Resize.CONTAIN) {
+            } else if (this._resize === Resize.CONTAIN) {
                 const ratio = Math.min(parentBounds.width / width * transform.scale.x, parentBounds.height / height * transform.scale.y);
                 if (!isNaN(ratio))
                     this.transform.scale.set(ratio, ratio);
-            } else if (this.resize === Resize.FITCONTAIN) {
+            } else if (this._resize === Resize.FITCONTAIN) {
                 const ratio = Math.min(parentBounds.width / width * transform.scale.x, parentBounds.height / height * transform.scale.y);
                 if (!isNaN(ratio))
                     this.transform.scale.set(ratio, ratio);
