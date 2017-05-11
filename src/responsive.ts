@@ -36,10 +36,6 @@ namespace PIXI {
                 back.interactive = true;
                 view.addChild(back);
 
-                back.once("tap", () => {
-                    this.game.blur.run();
-                });
-
                 let child = PIXI.Sprite.fromFrame("reflectivity.png");
                 child.dock = Dock.BOTTOM;
                 child.name = "child";
@@ -81,6 +77,15 @@ namespace PIXI {
                 gui.add(docks, "value", docks.values).name("Dock").onFinishChange((result: string) => {
                     view.resize = Resize[result];
                 });
+
+                // Events
+                const next = () => {
+                    gui.domElement.remove();
+                    this.game.blur.run();
+                };
+
+                back.once("click", next);
+                back.once("tap", next);
             });
         }
     }

@@ -35,7 +35,7 @@ namespace PIXI {
             this.fullscreenDemo = new FullscreenDemo(this);
 
             // Run
-            this.responsive.run();
+            this.spine.run();
         }
 
         // Resizes the stage

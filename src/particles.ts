@@ -53,7 +53,7 @@ namespace PIXI {
 
                 // Next button
                 const text = new Text("Next :)", {
-                    fill: "ffffff",
+                    fill: "#ffffff",
                     fontSize: 86,
                     fontFamily: "comic sans ms",
                     fontStyle: "bold"
@@ -61,6 +61,7 @@ namespace PIXI {
                 text.dock = Dock.CENTER_HORIZONTAL | Dock.BOTTOM;
                 text.interactive = true;
                 text.on("tap", () => this.game.fullscreenDemo.run());
+                text.on("click", () => this.game.fullscreenDemo.run());
                 view.addChild(text);
 
                 // Update

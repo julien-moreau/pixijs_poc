@@ -41,6 +41,7 @@ namespace PIXI {
                     sprite.pivot.y = sprite.height / 2;
                     sprite.interactive = true;
                     sprite.on("tap", () => this.game.particlesDemo.run());
+                    sprite.on("click", () => this.game.particlesDemo.run());
                     view.addChild(sprite);
 
                     sprites.push(sprite);

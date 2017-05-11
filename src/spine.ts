@@ -14,12 +14,13 @@ namespace PIXI {
             this.game.resize();
 
             // Load
-            loader.baseUrl = "./assets";
+            let loader = new loaders.Loader("./assets/");
             loader.add("snow.jpg");
             loader.add("frond_03.png");
             loader.add("spineboy", "spineboy.json");
 
             loader.load((loader: PIXI.loaders.Loader, res: any) => {
+                console.log(res);
                 let cover = PIXI.Sprite.fromFrame("snow.jpg");
                 cover.resize = Resize.COVER;
                 cover.name = "cover";

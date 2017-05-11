@@ -37,9 +37,8 @@ namespace PIXI {
                 flower.addChild(mask);
                 flower.mask = mask;
 
-                flower.on("tap", () => {
-                    this.game.spine.run();
-                });
+                flower.on("tap", () => this.game.spine.run());
+                flower.on("click", () => this.game.spine.run());
 
                 // Spritesheet
                 // sp_mask_diamond.png

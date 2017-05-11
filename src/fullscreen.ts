@@ -23,25 +23,16 @@ namespace PIXI {
 
                 // Methods
                 const enterFullscreen = () => {
+                    setTimeout(() => this.game.responsive.run(), 3000);
+
                     const requestFunction = this.game.view.requestFullscreen || this.game.view.msRequestFullscreen || this.game.view.webkitRequestFullscreen || this.game.view.mozRequestFullScreen;
-                    if (!requestFunction) return;
+                    if (!requestFunction)
+                        return;
+                    
                     requestFunction.call(this.game.view);
 
-                    // Draw text
-                    const text = new Text("Next :)", {
-                        fill: "ffffff",
-                        fontSize: 86,
-                        fontFamily: "comic sans ms",
-                        fontStyle: "bold"
-                    });
-                    text.dock = Dock.CENTER_HORIZONTAL | Dock.BOTTOM;
-                    text.resize = Resize.CONTAIN;
-                    this.game.stage.addChild(text);
-                    text.interactive = true;
-                    text.on("tap", () => {
-                        this.game.responsive.run();
-                        this.game.view.removeEventListener("click", enterFullscreen);
-                    });
+                    this.game.view.removeEventListener("click", enterFullscreen);
+                    this.game.view.removeEventListener("touchstart", enterFullscreen);
                 };
 
                 const exitFullscreen = () => {
@@ -57,6 +48,7 @@ namespace PIXI {
                 };
 
                 this.game.view.addEventListener("click", enterFullscreen);
+                this.game.view.addEventListener("touchstart", enterFullscreen);
 
                 this.game.start();
             });

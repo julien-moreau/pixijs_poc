@@ -25,9 +25,8 @@ namespace PIXI {
                 flower.interactive = true;
                 this.game.stage.addChild(flower);
 
-                flower.on("tap", () => {
-                    this.game.alpha.run();
-                });
+                flower.on("tap", () =>  this.game.alpha.run());
+                flower.on("click", () =>  this.game.alpha.run());
 
                 const blurFilter1 = new PIXI.filters.BlurFilter();
                 const blurFilter2 = new PIXI.filters.BlurFilter();
